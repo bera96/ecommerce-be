@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Categories } from './schemas/categories.schema';
@@ -6,7 +6,10 @@ import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class CategoriesService {
-  constructor(@InjectModel(Categories.name) public categoriesModel: Model<Categories>) {}
+  private readonly logger = new Logger(CategoriesService.name);
+  constructor(
+    @InjectModel(Categories.name) public categoriesModel: Model<Categories>,
+  ) {}
 
   async seedCategories() {
     const categoriesCount = await this.categoriesModel.countDocuments();
@@ -17,9 +20,9 @@ export class CategoriesService {
       }));
 
       await this.categoriesModel.insertMany(fakeCategories);
-      console.log('Fake categories seeded');
+      this.logger.verbose('Fake categories seeded');
     } else {
-      console.log('Categories already exist, skipping seeding');
+      this.logger.verbose('Categories already exist, skipping seeding');
     }
   }
 }

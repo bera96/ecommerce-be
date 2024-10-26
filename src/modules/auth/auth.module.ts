@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { UsersModule } from 'src/modules/users/users.module';
 import { ConfigService } from '@nestjs/config';
+import { RefreshTokenGuard } from './refresh-token.guard';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, JwtStrategy, JwtAuthGuard],
+  providers: [AuthService, JwtStrategy, JwtAuthGuard, RefreshTokenGuard],
   controllers: [AuthController],
 })
 export class AuthModule {}

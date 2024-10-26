@@ -27,4 +27,12 @@ export class UsersService {
 
     return newUser.toJSON();
   }
+
+  async findUserByEmail(email: string): Promise<User | null> {
+    return this.usersModel.findOne({ email });
+  }
+
+  async findById(id: string): Promise<User | null> {
+    return this.usersModel.findById(id).exec();
+  }
 }

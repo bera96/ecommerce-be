@@ -17,9 +17,18 @@ export class ProductsController {
   async getFilteredProducts(
     @Query() filterPaginationDto: FilterProductsPaginationDto,
   ) {
-    const { category, minPrice, maxPrice, sortBy, sortOrder, page, limit } =
-      filterPaginationDto;
+    const {
+      category,
+      search,
+      minPrice,
+      maxPrice,
+      sortBy,
+      sortOrder,
+      page,
+      limit,
+    } = filterPaginationDto;
     const filters = {
+      ...(search && { name: { $regex: search, $options: 'i' } }),
       ...(category && { category }),
       ...(minPrice && { price: { $gte: minPrice } }),
       ...(maxPrice && { price: { $lte: maxPrice } }),

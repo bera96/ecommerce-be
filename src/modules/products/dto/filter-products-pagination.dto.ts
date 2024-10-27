@@ -4,6 +4,10 @@ import { Type } from 'class-transformer';
 export class FilterProductsPaginationDto {
   @IsOptional()
   @IsString()
+  readonly search?: string;
+
+  @IsOptional()
+  @IsString()
   readonly category?: string;
 
   @IsOptional()

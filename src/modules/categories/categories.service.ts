@@ -14,10 +14,19 @@ export class CategoriesService {
   async seedCategories() {
     const categoriesCount = await this.categoriesModel.countDocuments();
     if (categoriesCount === 0) {
-      const fakeCategories = Array.from({ length: 10 }).map((_, index) => ({
-        name: faker.commerce.department(),
-        priority: index + 1,
-      }));
+      const uniqueCategories = new Set();
+      const fakeCategories = [];
+
+      while (uniqueCategories.size < 10) {
+        const categoryName = faker.commerce.department();
+        if (!uniqueCategories.has(categoryName)) {
+          uniqueCategories.add(categoryName);
+          fakeCategories.push({
+            name: categoryName,
+            priority: uniqueCategories.size,
+          });
+        }
+      }
 
       await this.categoriesModel.insertMany(fakeCategories);
       this.logger.verbose('Fake categories seeded');

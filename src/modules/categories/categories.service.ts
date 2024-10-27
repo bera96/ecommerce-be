@@ -34,4 +34,8 @@ export class CategoriesService {
       this.logger.verbose('Categories already exist, skipping seeding');
     }
   }
+
+  async getAllCategories() {
+    return this.categoriesModel.find().exec();
+  }
 }

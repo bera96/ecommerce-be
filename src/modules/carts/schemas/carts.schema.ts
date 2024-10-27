@@ -15,6 +15,7 @@ export class Cart {
         productId: { type: Types.ObjectId, ref: 'Product', required: true },
         quantity: { type: Number, required: true, min: 1 },
         price: { type: Number, required: true },
+        totalPrice: { type: Number, required: true },
       },
     ],
   })
@@ -22,16 +23,22 @@ export class Cart {
     productId: Types.ObjectId;
     quantity: number;
     price: number;
+    totalPrice: number;
   }>;
 
   @Prop({ default: 0 })
   totalAmount: number;
 
-  @Prop({ default: Date.now, expires: '7d' })
+  @Prop({ type: Date, default: () => new Date(Date.now() + 2 * 60 * 60 * 1000) })
   expiresAt: Date;
+
+  @Prop({ type: String, enum: ['paid', 'unpaid'], default: 'unpaid' })
+  status: string;
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);
+
+CartSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 CartSchema.pre('save', function (next) {
   if (this.isModified('items')) {
@@ -39,6 +46,9 @@ CartSchema.pre('save', function (next) {
       (total, item) => total + item.price * item.quantity,
       0,
     );
+    this.items.forEach((item) => {
+      item.totalPrice = item.price * item.quantity;
+    });
   }
   next();
 });

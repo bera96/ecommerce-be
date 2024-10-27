@@ -25,7 +25,8 @@ export class ProductsService {
 
       const fakeProducts = await Promise.all(
         Array.from({ length: 100 }).map(async () => {
-          const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+          const randomCategory =
+            categories[Math.floor(Math.random() * categories.length)];
           return {
             name: faker.commerce.productName(),
             price: Number(faker.commerce.price()),
@@ -59,5 +60,9 @@ export class ProductsService {
       filters,
       sort,
     );
+  }
+
+  async findById(id: string): Promise<Products | null> {
+    return this.productsModel.findById(id).exec();
   }
 }

@@ -1,15 +1,22 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Cart } from './schemas/carts.schema';
 import { ProductsService } from '../products/products.service';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { OrdersService } from '../orders/orders.service';
+import { Orders } from '../orders/schemas/orders.schema';
 
 @Injectable()
 export class CartsService {
   constructor(
     @InjectModel(Cart.name) private cartModel: Model<Cart>,
     private readonly productsService: ProductsService,
+    private readonly ordersService: OrdersService,
   ) {}
 
   async getCartByUserId(userId: string): Promise<Cart | null> {
@@ -81,6 +88,41 @@ export class CartsService {
     }
 
     return cart.save();
+  }
+
+  async checkoutCart(userId: string): Promise<Orders> {
+    const cart = await this.cartModel
+      .findOne({ userId, status: 'unpaid' })
+      .exec();
+    if (!cart || cart.items.length === 0) {
+      throw new NotFoundException('Cart not found or empty');
+    }
+
+    for (const item of cart.items) {
+      const product = await this.productsService.findById(
+        item.productId.toString(),
+      );
+      if (!product) {
+        throw new NotFoundException(`Product not found: ${item.productId}`);
+      }
+      if (product.stock < item.quantity) {
+        throw new BadRequestException(`Insufficient stock: ${product.name}`);
+      }
+      await this.productsService.updateStock(
+        item.productId.toString(),
+        product.stock - item.quantity,
+      );
+    }
+
+    const order = await this.ordersService.createOrder({
+      userId: cart.userId.toString(),
+      items: cart.items,
+      totalAmount: cart.totalAmount,
+    });
+
+    await this.cartModel.findByIdAndDelete(cart._id).exec();
+
+    return order;
   }
 
   async clearCart(

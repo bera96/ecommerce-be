@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Products, ProductsDocument } from './schemas/products.schema';
@@ -30,6 +30,7 @@ export class ProductsService {
           return {
             name: faker.commerce.productName(),
             price: Number(faker.commerce.price()),
+            stock: Math.floor(Math.random() * 100),
             description: faker.commerce.productDescription(),
             category: randomCategory._id,
           };
@@ -41,6 +42,18 @@ export class ProductsService {
     } else {
       this.logger.verbose('Products already exist, skipping seeding');
     }
+  }
+
+  async updateStock(productId: string, newStock: number): Promise<Products> {
+    const updatedProduct = await this.productsModel
+      .findByIdAndUpdate(productId, { stock: newStock }, { new: true })
+      .exec();
+
+    if (!updatedProduct) {
+      throw new NotFoundException('Product not found');
+    }
+
+    return updatedProduct;
   }
 
   async getAllProducts(): Promise<Products[]> {

@@ -1,14 +1,24 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import { HydratedDocument } from 'mongoose';
+
+export type CartItem = {
+  productId: Types.ObjectId;
+  quantity: number;
+  price: number;
+  totalPrice: number;
+};
 
 export type CartDocument = HydratedDocument<Cart>;
 
 @Schema({ timestamps: true })
 export class Cart {
+  @ApiProperty({ description: 'User ID' })
   @Prop({ type: Types.ObjectId, ref: 'User', required: true, unique: true })
   userId: Types.ObjectId;
 
+  @ApiProperty({ description: 'Cart items' })
   @Prop({
     type: [
       {
@@ -26,10 +36,12 @@ export class Cart {
     totalPrice: number;
   }>;
 
+  @ApiProperty({ description: 'Total amount' })
   @Prop({ default: 0 })
   totalAmount: number;
 
-  @Prop({ type: Date, default: () => new Date(Date.now() + 2 * 60 * 60 * 1000) })
+  @ApiProperty({ description: 'Expires at' })
+  @Prop({ type: Date, default: () => new Date(Date.now() + 1 * 60 * 60 * 1000) })
   expiresAt: Date;
 
   @Prop({ type: String, enum: ['paid', 'unpaid'], default: 'unpaid' })

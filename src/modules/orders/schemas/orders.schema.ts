@@ -1,14 +1,17 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
+import { Types } from 'mongoose';
 import { HydratedDocument } from 'mongoose';
 
 export type OrdersDocument = HydratedDocument<Orders>;
 
 @Schema({ timestamps: true })
 export class Orders {
+  @ApiProperty({ description: 'User ID' })
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   userId: Types.ObjectId;
 
+  @ApiProperty({ description: 'Total amount' })
   @Prop({ required: true })
   totalAmount: number;
 
@@ -27,17 +30,17 @@ export class Orders {
     price: number;
   }>;
 
-  @Prop()
+  @ApiProperty({ description: 'Shipping address' })
+  @Prop({ required: true })
   shippingAddress: string;
 
-  @Prop()
+  @ApiProperty({ description: 'Payment method' })
+  @Prop({ required: true })
   paymentMethod: string;
 
-  @Prop()
+  @ApiProperty({ description: 'Tracking number' })
+  @Prop({ required: true })
   trackingNumber: string;
-
-  @Prop()
-  notes: string;
 }
 
 export const OrdersSchema = SchemaFactory.createForClass(Orders);

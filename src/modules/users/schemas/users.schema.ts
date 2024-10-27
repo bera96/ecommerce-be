@@ -12,6 +12,7 @@ export type UserDocument = HydratedDocument<User>;
   },
 })
 export class User {
+  _id: any;
   @Prop({ required: true })
   firstName: string;
 
@@ -23,7 +24,9 @@ export class User {
 
   @Prop({ required: true, unique: true })
   email: string;
-  _id: any;
+
+  @Prop({ type: [String], default: [] })
+  addresses: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

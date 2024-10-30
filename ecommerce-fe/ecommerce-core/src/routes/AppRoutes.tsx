@@ -1,13 +1,5 @@
-import { ROUTES } from "./config/routeConfig";
-
-import { Navigate } from "react-router-dom";
-
-import { PROTECTED_ROUTES } from "./config/routeConfig";
-
-import { Route } from "react-router-dom";
-
-import { Routes } from "react-router-dom";
-import { PUBLIC_ROUTES } from "./config/routeConfig";
+import { ROUTES, PUBLIC_ROUTES, PROTECTED_ROUTES } from "./config/routeConfig";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import { ProtectedRoute } from "./guards/ProtectedRoute";
 import { PublicRoute } from "./guards/PublicRoute";

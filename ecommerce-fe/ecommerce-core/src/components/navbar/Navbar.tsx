@@ -2,12 +2,13 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/config/routeConfig";
 import Logo from "@/assets/logo.png";
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import deleteFromCookie from "@/utils/functions/deleteFromCookie";
 import { RootState } from "@/store/store";
 import { useAppSelector } from "@/store/store";
 import loginSlice from "auth/loginSlice";
 import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 export const Navbar = () => {
   const location = useLocation();
@@ -15,7 +16,15 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated } = useAppSelector((state: RootState) => state.login.user);
-  const { clearUser } = loginSlice.actions;
+  const { clearUser, setUser } = loginSlice.actions;
+
+  useEffect(() => {
+    const userFromCookie = Cookies.get("user");
+    if (userFromCookie) {
+      const userData = JSON.parse(userFromCookie);
+      dispatch(setUser(userData));
+    }
+  }, []);
 
   const getLinkClassName = ({ isActive }: { isActive: boolean }) => {
     return `transition-colors duration-200 ${
@@ -24,7 +33,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg h-20">
+    <nav className="bg-white shadow-lg h-16">
       <div className="container mx-auto px-4 h-full">
         <div className="flex items-center justify-between h-full">
           <Link to="/">

@@ -6,6 +6,8 @@ import { combineReducers } from "redux";
 
 const federatedSlices = {
   login: await import("auth/loginSlice").then((module) => module.default.reducer),
+  category: await import("products/CategorySlice").then((module) => module.default.reducer),
+  product: await import("products/ProductSlice").then((module) => module.default.reducer),
 };
 
 const initStore = async () => {

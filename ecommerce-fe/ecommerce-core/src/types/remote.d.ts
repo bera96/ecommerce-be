@@ -17,3 +17,13 @@ declare module "auth/loginSlice" {
   const loginSlice: Reducer;
   export default loginSlice;
 }
+
+declare module "products/CategorySlice" {
+  const categorySlice: Reducer;
+  export default categorySlice;
+}
+
+declare module "products/ProductSlice" {
+  const productSlice: Reducer;
+  export default productSlice;
+}

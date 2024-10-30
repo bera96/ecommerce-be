@@ -12,8 +12,17 @@ export default defineConfig({
       filename: "remoteEntry.js",
       exposes: {
         "./Products": "./src/pages/Products.tsx",
+        "./CategorySlice": "./src/store/slices/categorySlice.ts",
+        "./ProductSlice": "./src/store/slices/productSlice.ts",
       },
-      shared: ["react", "react-router-dom"],
+      shared: [
+        "react",
+        "react-dom",
+        "react-router-dom",
+        "@reduxjs/toolkit",
+        "react-redux",
+        "react-hot-toast",
+      ],
     }),
   ],
   build: {

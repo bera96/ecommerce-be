@@ -3,15 +3,16 @@ import { ROUTES } from "../../routes/config/routeConfig";
 import Logo from "@/assets/logo.png";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import deleteFromCookie from "@/utils/functions/deleteFromCookie";
-import { RootState } from "@/store/store";
-import { useAppSelector } from "@/store/store";
+import deleteFromCookie from "./../../utils/functions/deleteFromCookie";
+import { RootState } from "./../../store/store";
+import { useAppSelector } from "./../../store/store";
 import loginSlice from "auth/LoginSlice";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { LazyShoppingCart } from "../LazyComponents";
+import React from "react";
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();

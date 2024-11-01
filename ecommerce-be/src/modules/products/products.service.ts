@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Products, ProductsDocument } from './schemas/products.schema';
 import { faker } from '@faker-js/faker';
 import { CategoriesService } from '../categories/categories.service';
@@ -68,6 +68,9 @@ export class ProductsService {
     paginationQuery: PaginationQueryDto,
   ) {
     const sort = sortBy ? { [sortBy]: sortOrder } : {};
+    if (filters.category) {
+      filters.category = new Types.ObjectId(String(filters.category));
+    }
     return this.paginationService.paginate<ProductsDocument>(
       this.productsModel as Model<ProductsDocument>,
       paginationQuery,

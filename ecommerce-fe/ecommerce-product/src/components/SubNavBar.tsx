@@ -1,8 +1,12 @@
+import { useDispatch } from "react-redux";
 import { Category } from "../../types/category.types";
 import { useAppSelector } from "../store/store";
+import { setSelectedCategory } from "../store/slices/categorySlice";
 
 export const SubNavBar = () => {
   const categories = useAppSelector((state) => state.category.categories);
+  const dispatch = useDispatch();
+
   return (
     <div className="bg-neutral-900 h-14">
       <div className="relative w-full h-full">
@@ -13,6 +17,7 @@ export const SubNavBar = () => {
                 <button
                   key={category._id}
                   className="text-gray-400 hover:text-white transition-colors duration-200 text-sm font-medium whitespace-nowrap"
+                  onClick={() => dispatch(setSelectedCategory(category))}
                 >
                   {category.name}
                 </button>

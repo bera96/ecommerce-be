@@ -10,6 +10,10 @@ import { debounce } from "lodash";
 interface FilterState {
   search: string;
   page: number;
+  sortBy: string;
+  sortOrder: "asc" | "desc";
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 interface ProductQuantities {
@@ -20,18 +24,41 @@ export const ProductList = () => {
   const dispatch = useDispatch();
   const productService = new ProductService();
   const products = useAppSelector((state) => state.product.products);
+  const selectedCategory = useAppSelector((state) => state.category.selectedCategory);
   const [quantities, setQuantities] = useState<ProductQuantities>({});
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState<FilterState>({
     search: "",
     page: 1,
+    sortBy: "price",
+    sortOrder: "asc",
   });
-
   useEffect(() => {
-    productService.getFilteredProducts(filters).then((res: any) => {
-      dispatch(setProducts(res.data));
-    });
-  }, [filters]);
+    productService
+      .getFilteredProducts({
+        category: selectedCategory?._id || undefined,
+        search: filters.search || undefined,
+        minPrice: filters.minPrice || undefined,
+        maxPrice: filters.maxPrice || undefined,
+        sortBy: filters.sortBy || undefined,
+        sortOrder: filters.sortOrder,
+        page: filters.page,
+        limit: 12,
+      })
+      .then((res: any) => {
+        dispatch(setProducts(res.data));
+      });
+  }, [filters, selectedCategory]);
+
+  const handleSortChange = (value: string) => {
+    if (value === "asc") {
+      setFilters((prev) => ({ ...prev, sortBy: "price", sortOrder: "asc" }));
+    } else if (value === "desc") {
+      setFilters((prev) => ({ ...prev, sortBy: "price", sortOrder: "desc" }));
+    } else {
+      setFilters((prev) => ({ ...prev, sortBy: "", sortOrder: "asc" }));
+    }
+  };
 
   const debouncedSearch = useCallback(
     debounce((value: string) => {
@@ -39,7 +66,6 @@ export const ProductList = () => {
     }, 500),
     []
   );
-
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
     debouncedSearch(value);
@@ -54,14 +80,80 @@ export const ProductList = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+      <div className="mb-6 flex flex-col md:flex-row gap-4">
+        <div className="flex-1">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+          />
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="relative">
+            <select
+              value={`${filters.sortBy}_${filters.sortOrder}`}
+              onChange={(e) => handleSortChange(e.target.value)}
+              className="appearance-none w-full sm:w-48 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm bg-white pr-10"
+            >
+              <option value="asc">Price: Low to High</option>
+              <option value="desc">Price: High to Low</option>
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div className="flex gap-2 sm:gap-4">
+            <div className="flex-1 sm:flex-none">
+              <input
+                type="number"
+                placeholder="Min Price"
+                value={filters.minPrice || ""}
+                onChange={(e) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    minPrice: e.target.value ? Number(e.target.value) : undefined,
+                    page: 1,
+                  }))
+                }
+                className="w-full sm:w-24 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+              />
+            </div>
+            <div className="flex items-center">
+              <span className="text-gray-500">-</span>
+            </div>
+            <div className="flex-1 sm:flex-none">
+              <input
+                type="number"
+                placeholder="Max Price"
+                value={filters.maxPrice || ""}
+                onChange={(e) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    maxPrice: e.target.value ? Number(e.target.value) : undefined,
+                    page: 1,
+                  }))
+                }
+                className="w-full sm:w-24 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
@@ -79,15 +171,15 @@ export const ProductList = () => {
         <button
           onClick={() => setFilters((prev) => ({ ...prev, page: prev.page - 1 }))}
           disabled={filters.page === 1}
-          className="px-4 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="px-6 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors duration-200"
         >
           Previous
         </button>
-        <span className="text-gray-600">Page {filters.page}</span>
+        <span className="text-gray-600 font-medium">Page {filters.page}</span>
         <button
           onClick={() => setFilters((prev) => ({ ...prev, page: prev.page + 1 }))}
           disabled={products?.pages! <= filters.page}
-          className="px-4 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="px-6 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors duration-200"
         >
           Next
         </button>

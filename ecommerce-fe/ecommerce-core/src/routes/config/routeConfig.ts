@@ -1,4 +1,10 @@
-import { LazyLogin, LazyProducts, LazySignup } from "../../components/LazyComponents";
+import {
+  LazyCart,
+  LazyLogin,
+  LazyOrder,
+  LazyProducts,
+  LazySignup,
+} from "../../components/LazyComponents";
 
 export const ROUTES = {
   LOGIN: "/login",
@@ -24,12 +30,12 @@ export const PROTECTED_ROUTES = [
     path: ROUTES.PRODUCTS,
     component: LazyProducts,
   },
-//   {
-//     path: ROUTES.ORDERS,
-//     component: LazyOrders,
-//   },
-//   {
-//     path: ROUTES.CART,
-//     component: LazyCart,
-//   },
+  {
+    path: ROUTES.CART,
+    component: LazyCart,
+  },
+  {
+    path: ROUTES.ORDERS,
+    component: LazyOrder,
+  },
 ];

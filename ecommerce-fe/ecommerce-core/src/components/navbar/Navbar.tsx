@@ -1,14 +1,15 @@
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/config/routeConfig";
 import Logo from "@/assets/logo.png";
-import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import deleteFromCookie from "@/utils/functions/deleteFromCookie";
 import { RootState } from "@/store/store";
 import { useAppSelector } from "@/store/store";
-import loginSlice from "auth/loginSlice";
+import loginSlice from "auth/LoginSlice";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import { LazyShoppingCart } from "../LazyComponents";
 
 export const Navbar = () => {
   const location = useLocation();
@@ -27,20 +28,20 @@ export const Navbar = () => {
   }, []);
 
   const getLinkClassName = ({ isActive }: { isActive: boolean }) => {
-    return `transition-colors duration-200 ${
-      isActive ? "text-black font-medium" : "text-gray-400 hover:text-gray-600"
+    return `core-transition-colors core-duration-200 ${
+      isActive ? "core-text-black core-font-medium" : "core-text-gray-400 hover:core-text-gray-600"
     }`;
   };
 
   return (
-    <nav className="bg-white shadow-lg h-16">
-      <div className="container mx-auto px-4 h-full">
-        <div className="flex items-center justify-between h-full">
+    <nav className="core-bg-white core-shadow-lg core-h-16">
+      <div className="core-container core-mx-auto core-px-4 core-h-full">
+        <div className="core-flex core-items-center core-justify-between core-h-full">
           <Link to="/">
-            <img src={Logo} alt="Logo" className="h-10 w-auto" />
+            <img src={Logo} alt="Logo" className="core-h-10 core-w-auto" />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="core-hidden md:core-flex core-items-center core-space-x-4">
             {isAuthenticated ? (
               <>
                 <NavLink to={ROUTES.PRODUCTS} className={getLinkClassName}>
@@ -49,11 +50,11 @@ export const Navbar = () => {
                 <NavLink to={ROUTES.ORDERS} className={getLinkClassName}>
                   Orders
                 </NavLink>
-                <ShoppingCartIcon
-                  className={`size-6 cursor-pointer ${
+                <LazyShoppingCart
+                  className={`core-size-6 core-cursor-pointer ${
                     location.pathname === ROUTES.CART
-                      ? "text-black"
-                      : "text-gray-400 hover:text-gray-600"
+                      ? "core-text-black"
+                      : "core-text-gray-400 hover:core-text-gray-600"
                   }`}
                 />
                 <button
@@ -62,7 +63,7 @@ export const Navbar = () => {
                     dispatch(clearUser());
                     navigate(ROUTES.LOGIN);
                   }}
-                  className="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                  className="core-text-gray-400 hover:core-text-gray-600 core-transition-colors core-duration-200"
                 >
                   Logout
                 </button>
@@ -81,15 +82,19 @@ export const Navbar = () => {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-gray-500 hover:text-gray-700"
+            className="md:core-hidden core-text-gray-500 hover:core-text-gray-700"
           >
-            {isMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <XMarkIcon className="core-h-6 core-w-6" />
+            ) : (
+              <Bars3Icon className="core-h-6 core-w-6" />
+            )}
           </button>
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden absolute top-20 left-0 right-0 bg-white shadow-lg">
-            <div className="px-4 py-3 space-y-3">
+          <div className="md:core-hidden core-absolute core-top-20 core-left-0 core-right-0 core-bg-white core-shadow-lg">
+            <div className="core-px-4 core-py-3 core-space-y-3">
               {isAuthenticated ? (
                 <>
                   <NavLink
@@ -97,22 +102,21 @@ export const Navbar = () => {
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="block py-2">Products</div>
+                    <div className="core-block core-py-2">Products</div>
                   </NavLink>
                   <NavLink
                     to={ROUTES.ORDERS}
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="block py-2">Orders</div>
+                    <div className="core-block core-py-2">Orders</div>
                   </NavLink>
                   <Link
                     to={ROUTES.CART}
-                    className="flex items-center text-gray-400 hover:text-gray-600"
+                    className="core-flex core-items-center core-text-gray-400 hover:core-text-gray-600"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <ShoppingCartIcon className="h-6 w-6 mr-2" />
-                    <span>Cart</span>
+                    <LazyShoppingCart />
                   </Link>
                   <button
                     onClick={() => {
@@ -121,7 +125,7 @@ export const Navbar = () => {
                       navigate(ROUTES.LOGIN);
                       setIsMenuOpen(false);
                     }}
-                    className="block w-full text-left py-2 text-gray-400 hover:text-gray-600"
+                    className="core-block core-w-full core-text-left core-py-2 core-text-gray-400 hover:core-text-gray-600"
                   >
                     Logout
                   </button>
@@ -133,14 +137,14 @@ export const Navbar = () => {
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="block py-2">Login</div>
+                    <div className="core-block core-py-2">Login</div>
                   </NavLink>
                   <NavLink
                     to={ROUTES.SIGNUP}
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="block py-2">Signup</div>
+                    <div className="core-block core-py-2">Signup</div>
                   </NavLink>
                 </>
               )}

@@ -13,7 +13,7 @@ export default defineConfig({
       exposes: {
         "./Login": "./src/pages/Login.tsx",
         "./Signup": "./src/pages/Signup.tsx",
-        "./loginSlice": "./src/store/reducer.ts",
+        "./LoginSlice": "./src/store/reducer.ts",
       },
       shared: [
         "react",

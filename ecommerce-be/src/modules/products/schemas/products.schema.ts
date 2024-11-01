@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { HydratedDocument, Types } from 'mongoose';
-import { Categories } from 'src/modules/categories/schemas/categories.schema';
 
 export type ProductsDocument = HydratedDocument<Products>;
 
@@ -33,6 +32,10 @@ export class Products {
     required: true,
   })
   category: string;
+
+  @ApiProperty({ description: 'Product Image' })
+  @Prop({ required: true })
+  image: string;
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);

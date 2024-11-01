@@ -1,8 +1,7 @@
-import "./App.css";
 import Products from "./pages/Products";
 function App() {
   return (
-    <div>
+    <div className="product-app">
       <Products />
     </div>
   );

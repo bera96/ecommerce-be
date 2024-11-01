@@ -33,6 +33,7 @@ export class ProductsService {
             stock: Math.floor(Math.random() * 100),
             description: faker.commerce.productDescription(),
             category: randomCategory._id,
+            image: faker.image.url(),
           };
         }),
       );

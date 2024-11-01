@@ -10,4 +10,7 @@ export class CreateOrderDto {
 
   @ApiProperty({ description: 'Total amount' })
   totalAmount: number;
+
+  @ApiProperty({ description: 'Tracking number' })
+  trackingNumber: string;
 }

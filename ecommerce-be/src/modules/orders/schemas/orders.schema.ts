@@ -19,24 +19,22 @@ export class Orders {
     type: [
       {
         productId: { type: Types.ObjectId, ref: 'Product' },
+        name: String,
+        image: String,
         quantity: Number,
         price: Number,
+        totalAmount: Number,
       },
     ],
   })
   items: Array<{
     productId: Types.ObjectId;
+    name: string;
+    image: string;
     quantity: number;
     price: number;
+    totalAmount: number;
   }>;
-
-  @ApiProperty({ description: 'Shipping address' })
-  @Prop({ required: true })
-  shippingAddress: string;
-
-  @ApiProperty({ description: 'Payment method' })
-  @Prop({ required: true })
-  paymentMethod: string;
 
   @ApiProperty({ description: 'Tracking number' })
   @Prop({ required: true })
@@ -51,6 +49,9 @@ OrdersSchema.pre('save', function (next) {
       (total, item) => total + item.price * item.quantity,
       0,
     );
+    this.items.forEach((item) => {
+      item.totalAmount = item.price * item.quantity;
+    });
   }
   next();
 });

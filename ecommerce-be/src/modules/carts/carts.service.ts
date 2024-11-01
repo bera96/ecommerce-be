@@ -10,6 +10,7 @@ import { ProductsService } from '../products/products.service';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { OrdersService } from '../orders/orders.service';
 import { Orders } from '../orders/schemas/orders.schema';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class CartsService {
@@ -21,6 +22,12 @@ export class CartsService {
 
   async getCartByUserId(userId: string): Promise<Cart | null> {
     let cart = await this.cartModel.findOne({ userId }).exec();
+    if (cart && cart.items) {
+      cart.items = cart.items.map((item) => ({
+        ...item,
+        totalPrice: Number(item.totalPrice.toFixed(2)),
+      }));
+    }
 
     return cart;
   }
@@ -56,6 +63,8 @@ export class CartsService {
         quantity,
         price: product.price,
         totalPrice: product.price * quantity,
+        image: product.image,
+        name: product.name,
       });
     }
 
@@ -118,6 +127,7 @@ export class CartsService {
       userId: cart.userId.toString(),
       items: cart.items,
       totalAmount: cart.totalAmount,
+      trackingNumber: randomUUID(),
     });
 
     await this.cartModel.findByIdAndDelete(cart._id).exec();

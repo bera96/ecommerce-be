@@ -23,8 +23,6 @@ import {
 } from '@nestjs/swagger';
 import { IRequestWithUser } from 'src/common/types/IRequestWithUser';
 
-
-
 @ApiTags('carts')
 @ApiBearerAuth('JWT-AUTH')
 @Controller('carts')
@@ -43,7 +41,7 @@ export class CartsController {
     const userId = req.user.userId;
     const cart = await this.cartsService.getCartByUserId(userId);
     if (!cart) {
-      throw new NotFoundException('Your cart is empty');
+      return { items: [], totalAmount: 0 };
     }
     return cart;
   }

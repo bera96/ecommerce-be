@@ -11,6 +11,8 @@ export default defineConfig({
       remotes: {
         products: "http://localhost:4175/assets/remoteEntry.js",
         auth: "http://localhost:4173/assets/remoteEntry.js",
+        cart: "http://localhost:4176/assets/remoteEntry.js",
+        order: "http://localhost:4177/assets/remoteEntry.js",
       },
       shared: [
         "react",

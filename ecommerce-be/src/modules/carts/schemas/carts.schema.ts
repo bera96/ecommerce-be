@@ -23,6 +23,8 @@ export class Cart {
     type: [
       {
         productId: { type: Types.ObjectId, ref: 'Product', required: true },
+        image: { type: String, required: true },
+        name: { type: String, required: true },
         quantity: { type: Number, required: true, min: 1 },
         price: { type: Number, required: true },
         totalPrice: { type: Number, required: true },
@@ -31,6 +33,8 @@ export class Cart {
   })
   items: Array<{
     productId: Types.ObjectId;
+    image: string;
+    name: string;
     quantity: number;
     price: number;
     totalPrice: number;
@@ -41,7 +45,11 @@ export class Cart {
   totalAmount: number;
 
   @ApiProperty({ description: 'Expires at' })
-  @Prop({ type: Date, default: () => new Date(Date.now() + 1 * 60 * 60 * 1000) })
+  @Prop({
+    type: Date,
+    default: () => new Date(Date.now() + 1 * 60 * 60 * 1000),
+    index: { expires: '1d' },
+  })
   expiresAt: Date;
 
   @Prop({ type: String, enum: ['paid', 'unpaid'], default: 'unpaid' })
@@ -49,8 +57,6 @@ export class Cart {
 }
 
 export const CartSchema = SchemaFactory.createForClass(Cart);
-
-CartSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 CartSchema.pre('save', function (next) {
   if (this.isModified('items')) {

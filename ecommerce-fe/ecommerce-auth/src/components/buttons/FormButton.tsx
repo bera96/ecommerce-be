@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React from "react";
 
 interface FormButtonProps {
   type: "submit" | "button";
@@ -6,7 +6,7 @@ interface FormButtonProps {
   onClick?: () => void;
 }
 
-export const FormButton: FC<FormButtonProps> = ({ text, type, onClick }) => {
+export const FormButton: React.FC<FormButtonProps> = ({ text, type, onClick }) => {
   return (
     <button
       type={type}

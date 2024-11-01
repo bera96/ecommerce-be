@@ -1,15 +1,16 @@
-import { FormButton } from "@/components/buttons/FormButton";
-import FormInput from "@/components/inputs/FormInput";
+import { FormButton } from "../components/buttons/FormButton";
+import React from "react";
+import FormInput from "../components/inputs/FormInput";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useAuth } from "../utils/hooks/useAuth";
-import { setUser } from "@/store/reducer";
+import { setUser } from "../store/reducer";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "@/store/store";
+import { useAppSelector } from "../store/store";
 import { useEffect } from "react";
-import Logo from "@/assets/logo.png";
-const Login = () => {
+import Logo from "../assets/logo.png";
+const Login: React.FC<{}> = () => {
   const { handleLogin } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();

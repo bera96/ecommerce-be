@@ -1,3 +1,5 @@
+import React from "react";
+
 type FormInputsProps = {
   label: string;
   type: string;

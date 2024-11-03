@@ -3,8 +3,9 @@ import { CartItem, clearCart, setCart } from "../store/slices/cartSlice";
 import { CartService } from "../services/cartService";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import React from "react";
 
-export const Cart = () => {
+export const Cart: React.FC = () => {
   const cart = useAppSelector((state) => state.cart);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const dispatch = useDispatch();

@@ -5,8 +5,9 @@ import { useAppSelector } from "../store/store";
 import { setCart } from "../store/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
-const ShoppingCart = ({ className }: { className: string }) => {
+const ShoppingCart: React.FC<{ className: string }> = ({ className }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useAppSelector((state) => state.cart);

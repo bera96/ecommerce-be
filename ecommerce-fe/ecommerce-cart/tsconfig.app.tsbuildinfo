@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/shoppingcart.tsx","./src/pages/cart.tsx","./src/services/cartservice.ts","./src/store/store.ts","./src/store/slices/cartslice.ts"],"version":"5.6.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/setuptests.ts","./src/vite-env.d.ts","./src/components/shoppingcart.test.tsx","./src/components/shoppingcart.tsx","./src/pages/cart.test.tsx","./src/pages/cart.tsx","./src/services/cartservice.ts","./src/store/store.ts","./src/store/slices/cartslice.ts"],"version":"5.6.3"}

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { OrderService } from "../services/orderService";
 import { OrderState } from "../store/slices/orderSlice";
+import React from "react";
 
-const Orders = () => {
+const Orders: React.FC = () => {
   const [orders, setOrders] = useState<OrderState[]>([]);
   const orderService = new OrderService();
 

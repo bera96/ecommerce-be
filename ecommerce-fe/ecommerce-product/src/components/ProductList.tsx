@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setProducts } from "../store/slices/productSlice";
 import { ProductService } from "../../services/product/productService";
 import { debounce } from "lodash";
+import React from "react";
 
 interface FilterState {
   search: string;
@@ -20,7 +21,7 @@ interface ProductQuantities {
   [key: string]: number;
 }
 
-export const ProductList = () => {
+export const ProductList: React.FC = () => {
   const dispatch = useDispatch();
   const productService = new ProductService();
   const products = useAppSelector((state) => state.product.products);

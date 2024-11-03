@@ -1,5 +1,6 @@
 import { ProductService } from "../../services/product/productService";
 import { Product } from "../../types/product.types";
+import React from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -7,7 +8,11 @@ interface ProductCardProps {
   onQuantityChange: (change: number) => void;
 }
 
-export const ProductCard = ({ product, quantity, onQuantityChange }: ProductCardProps) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  quantity,
+  onQuantityChange,
+}) => {
   const getStockStatus = (stock: number) => {
     if (stock === 0) {
       return { color: "bg-red-100 text-red-800", text: "Out of Stock" };

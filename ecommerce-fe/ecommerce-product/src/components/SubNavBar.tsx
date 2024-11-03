@@ -2,8 +2,9 @@ import { useDispatch } from "react-redux";
 import { Category } from "../../types/category.types";
 import { useAppSelector } from "../store/store";
 import { setSelectedCategory } from "../store/slices/categorySlice";
+import React from "react";
 
-export const SubNavBar = () => {
+export const SubNavBar: React.FC = () => {
   const categories = useAppSelector((state) => state.category.categories);
   const dispatch = useDispatch();
 

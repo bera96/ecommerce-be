@@ -1,13 +1,15 @@
 import axios, { AxiosInstance } from "axios";
 import toast from "react-hot-toast";
 
+export const VITE_API_URL = process.env.VITE_API_URL;
+
 export class ProductService {
   private axiosInstance: AxiosInstance;
 
   constructor(baseUrl?: string) {
     const token = document.cookie.split("accessToken=")[1]?.split(";")[0];
     this.axiosInstance = axios.create({
-      baseURL: baseUrl || "http://localhost:3000/api/products",
+      baseURL: baseUrl || `${VITE_API_URL}/api/products`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

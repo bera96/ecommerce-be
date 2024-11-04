@@ -1,5 +1,69 @@
 version: "3"
 services:
+  auth:
+    build:
+      context: ./ecommerce-fe/ecommerce-auth
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports:
+      - "4173:4173"
+    networks:
+      - app-network
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+  cart:
+    build:
+      context: ./ecommerce-fe/ecommerce-cart
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports:
+      - "4176:4176"
+    networks:
+      - app-network
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+  core:
+    build:
+      context: ./ecommerce-fe/ecommerce-core
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports:
+      - "4174:4174"
+    networks:
+      - app-network
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+  order:
+    build:
+      context: ./ecommerce-fe/ecommerce-order
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports:
+      - "4177:4177"
+    networks:
+      - app-network
+    environment:
+      - VITE_API_URL=http://localhost:8000
+
+  product:
+    build:
+      context: ./ecommerce-fe/ecommerce-product
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports:
+      - "4175:4175"
+    networks:
+      - app-network
+    environment:
+      - VITE_API_URL=http://localhost:8000
 
   backend:
     build:
@@ -10,8 +74,11 @@ services:
     networks:
       - app-network
     environment:
-      - MONGO_URI=mongodb://mongo:27017/mydatabase
+      - MONGO_URI=mongodb://mongo:27017/ecommerce
       - JWT_SECRET=itsasecret
+      - NODE_ENV=development
+    depends_on:
+      - mongo
 
   mongo:
     image: mongo:latest
@@ -21,6 +88,8 @@ services:
       - app-network
     volumes:
       - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=ecommerce
 
 volumes:
   mongo_data:

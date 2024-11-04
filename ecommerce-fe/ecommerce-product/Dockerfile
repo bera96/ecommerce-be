@@ -2,8 +2,6 @@ FROM node:18-alpine as development
 
 WORKDIR /app
 
-RUN apk add --no-cache python3 make g++
-
 COPY package*.json ./
 
 RUN npm config set registry https://registry.npmjs.org/
@@ -15,8 +13,11 @@ RUN npm install
 
 COPY . .
 
-RUN npm rebuild bcrypt --build-from-source
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 
-EXPOSE 8000
+RUN npm run build
 
-CMD ["npm", "run", "start"]
+EXPOSE 4175
+
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "4175"]

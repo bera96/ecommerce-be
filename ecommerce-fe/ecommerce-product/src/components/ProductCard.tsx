@@ -1,4 +1,4 @@
-import { ProductService } from "../../services/product/productService";
+import { ProductService, VITE_API_URL } from "../../services/product/productService";
 import { Product } from "../../types/product.types";
 import React from "react";
 
@@ -26,7 +26,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const stockStatus = getStockStatus(product.stock);
 
   const onBuyNow = (productId: string, quantity: number) => {
-    const productService = new ProductService("http://localhost:3000/api/carts");
+    const productService = new ProductService(`${VITE_API_URL}/api/carts`);
     productService.addToCart({ productId, quantity }).then(() => {
       const addToProductEvent = new CustomEvent("addToProduct", {
         detail: { productId, quantity },

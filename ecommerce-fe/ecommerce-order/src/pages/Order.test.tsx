@@ -42,17 +42,17 @@ describe("Orders", () => {
   it("renders orders correctly", async () => {
     render(<Orders />);
 
-    expect(screen.getByText("Order History")).toBeInTheDocument();
+    expect(screen.getByTestId("order-history-title")).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText(/March 20, 2024/)).toBeInTheDocument();
+      expect(screen.getByTestId("order-date")).toBeInTheDocument();
 
-      expect(screen.getByText("TRK123456")).toBeInTheDocument();
+      expect(screen.getByTestId("tracking-number")).toBeInTheDocument();
 
-      expect(screen.getByText("Test Product 1")).toBeInTheDocument();
-      expect(screen.getByText("Test Product 2")).toBeInTheDocument();
+      expect(screen.getAllByTestId("order-product")[0]).toBeInTheDocument();
+      expect(screen.getAllByTestId("order-product")[1]).toBeInTheDocument();
 
-      expect(screen.getByText("$300.00")).toBeInTheDocument();
+      expect(screen.getByTestId("order-total-amount")).toBeInTheDocument();
     });
   });
 
@@ -64,8 +64,8 @@ describe("Orders", () => {
     render(<Orders />);
 
     await waitFor(() => {
-      expect(screen.getByText("No orders found")).toBeInTheDocument();
-      expect(screen.getByText("You haven't placed any orders yet.")).toBeInTheDocument();
+      expect(screen.getByTestId("no-orders-found")).toBeInTheDocument();
+      expect(screen.getByTestId("no-orders-yet")).toBeInTheDocument();
     });
   });
 

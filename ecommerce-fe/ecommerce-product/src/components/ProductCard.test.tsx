@@ -43,14 +43,14 @@ describe("ProductCard", () => {
       />
     );
 
-    const stockBadge = screen.getAllByText("Out of Stock", {
+    const stockBadge = screen.getAllByText("PRODUCT_CARD.OUT_OF_STOCK", {
       selector: ".absolute.top-4.left-4",
     });
     expect(stockBadge[0]).toBeInTheDocument();
     expect(stockBadge[0]).toHaveClass("bg-red-100", "text-red-800");
 
     const buyButton = screen.getAllByRole("button", {
-      name: "Out of Stock",
+      name: "PRODUCT_CARD.OUT_OF_STOCK",
     });
     expect(buyButton[0]).toBeDisabled();
   });
@@ -65,7 +65,7 @@ describe("ProductCard", () => {
       />
     );
 
-    const buyButton = screen.getByRole("button", { name: /out of stock/i });
+    const buyButton = screen.getByRole("button", { name: "PRODUCT_CARD.OUT_OF_STOCK" });
     expect(buyButton).toBeDisabled();
   });
 
@@ -79,7 +79,7 @@ describe("ProductCard", () => {
       <ProductCard product={mockProduct} quantity={1} onQuantityChange={mockOnQuantityChange} />
     );
 
-    const buyButton = screen.getByRole("button", { name: /buy now/i });
+    const buyButton = screen.getByRole("button", { name: "PRODUCT_CARD.BUY_NOW" });
     fireEvent.click(buyButton);
 
     expect(mockAddToCart).toHaveBeenCalledWith({

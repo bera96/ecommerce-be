@@ -60,6 +60,7 @@ const Login: React.FC<{}> = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <FormInput
+            testId="email-input"
             onChange={handleChange}
             value={values.email}
             label={t("LOGIN.EMAIL")}
@@ -71,6 +72,7 @@ const Login: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.email}</p>
           <FormInput
+            testId="password-input"
             onChange={handleChange}
             value={values.password}
             label={t("LOGIN.PASSWORD")}
@@ -82,14 +84,20 @@ const Login: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.password}</p>
           <div>
-            <FormButton text={t("LOGIN.SUBMIT")} type="button" onClick={() => handleSubmit()} />
+            <FormButton
+              testId="submit-button"
+              text={t("LOGIN.SUBMIT")}
+              type="button"
+              onClick={() => handleSubmit()}
+            />
           </div>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm text-gray-500" data-testid="login-link-text">
             {t("LOGIN.DONT_HAVE_ACCOUNT")}
             <Link
               to="/signup"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              data-testid="login-link"
             >
               {t("LOGIN.SIGNUP")}
             </Link>

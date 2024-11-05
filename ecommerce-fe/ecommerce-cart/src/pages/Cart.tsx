@@ -123,7 +123,9 @@ export const Cart: React.FC = () => {
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6 h-fit">
-          <h2 className="text-xl font-semibold mb-4">{t("CART.CART_SUMMARY")}</h2>
+          <h2 className="text-xl font-semibold mb-4" data-testid="cart-summary-title">
+            {t("CART.CART_SUMMARY")}
+          </h2>
           <div className="space-y-2 mb-4">
             <div className="flex justify-between">
               <span>{t("CART.SUBTOTAL")}</span>
@@ -150,6 +152,7 @@ export const Cart: React.FC = () => {
               {t("CART.CHECKOUT")}
             </button>
             <button
+              data-testid="clear-cart-button"
               className="w-full border border-red-500 text-red-500 py-2 rounded-lg
                          hover:bg-red-50 transition-colors"
               onClick={handleClearCart}

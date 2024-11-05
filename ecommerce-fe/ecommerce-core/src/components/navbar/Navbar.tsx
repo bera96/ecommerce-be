@@ -132,6 +132,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           <button
+            data-testid="mobile-menu-button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:core-hidden core-text-gray-500 hover:core-text-gray-700"
           >

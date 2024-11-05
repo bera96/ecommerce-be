@@ -77,7 +77,7 @@ describe("Cart", () => {
   it("calculates the total amount correctly", () => {
     renderWithProviders(<Cart />);
 
-    const cartSummary = screen.getByText("Cart Summary").parentElement;
+    const cartSummary = screen.getByTestId("cart-summary-title").parentElement;
     const total = mockCartItems.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const totalElement = cartSummary?.querySelector(".font-semibold span:last-child");
@@ -100,7 +100,7 @@ describe("Cart", () => {
   it("clears the cart", async () => {
     renderWithProviders(<Cart />);
 
-    const clearButton = screen.getByText("Clear Cart");
+    const clearButton = screen.getByTestId("clear-cart-button");
 
     await act(async () => {
       fireEvent.click(clearButton);

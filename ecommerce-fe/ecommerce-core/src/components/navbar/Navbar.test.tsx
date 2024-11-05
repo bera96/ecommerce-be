@@ -80,14 +80,14 @@ describe("Navbar Component", () => {
 
   it("should show login/signup for unauthenticated users", () => {
     renderNavbar();
-    expect(screen.getByText("Login")).toBeInTheDocument();
-    expect(screen.getByText("Signup")).toBeInTheDocument();
+    expect(screen.getByText("NAVBAR.LOGIN")).toBeInTheDocument();
+    expect(screen.getByText("NAVBAR.SIGNUP")).toBeInTheDocument();
   });
 
   it("should toggle mobile menu when button is clicked", () => {
     renderNavbar();
 
-    const menuButton = screen.getByRole("button");
+    const menuButton = screen.getByTestId("mobile-menu-button");
 
     fireEvent.click(menuButton);
     expect(screen.getByRole("navigation")).toBeInTheDocument();

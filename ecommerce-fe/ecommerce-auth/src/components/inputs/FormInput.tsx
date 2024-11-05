@@ -9,6 +9,7 @@ type FormInputsProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   color: "primary" | "error";
+  testId?: string;
 };
 
 const FormInput = ({
@@ -20,6 +21,7 @@ const FormInput = ({
   onChange,
   value,
   color,
+  testId,
 }: FormInputsProps) => {
   return (
     <div>
@@ -28,6 +30,7 @@ const FormInput = ({
       </label>
       <div className="mt-2">
         <input
+          data-testid={testId}
           id={name}
           name={name}
           type={type}

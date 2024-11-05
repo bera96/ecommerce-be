@@ -56,16 +56,16 @@ describe("Login Component", () => {
   it("renders login form correctly", () => {
     renderLogin();
 
-    expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
-    expect(screen.getByText(/don't have an account\?/i)).toBeInTheDocument();
+    expect(screen.getByTestId("email-input")).toBeInTheDocument();
+    expect(screen.getByTestId("password-input")).toBeInTheDocument();
+    expect(screen.getByTestId("submit-button")).toBeInTheDocument();
+    expect(screen.getByTestId("login-link-text")).toBeInTheDocument();
   });
 
   it("shows validation errors for empty fields", async () => {
     renderLogin();
 
-    const signInButton = screen.getByRole("button", { name: /sign in/i });
+    const signInButton = screen.getByTestId("submit-button");
     fireEvent.click(signInButton);
 
     await waitFor(() => {
@@ -77,10 +77,10 @@ describe("Login Component", () => {
   it("shows error for invalid email format", async () => {
     renderLogin();
 
-    const emailInput = screen.getByLabelText(/email address/i);
+    const emailInput = screen.getByTestId("email-input");
     fireEvent.change(emailInput, { target: { value: "invalid-email" } });
 
-    const signInButton = screen.getByRole("button", { name: /sign in/i });
+    const signInButton = screen.getByTestId("submit-button");
     fireEvent.click(signInButton);
 
     await waitFor(() => {
@@ -96,13 +96,13 @@ describe("Login Component", () => {
 
     renderLogin();
 
-    const emailInput = screen.getByLabelText(/email address/i);
-    const passwordInput = screen.getByLabelText(/password/i);
+    const emailInput = screen.getByTestId("email-input");
+    const passwordInput = screen.getByTestId("password-input");
 
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.change(passwordInput, { target: { value: "password123" } });
 
-    const signInButton = screen.getByRole("button", { name: /sign in/i });
+    const signInButton = screen.getByTestId("submit-button");
     fireEvent.click(signInButton);
 
     await waitFor(() => {

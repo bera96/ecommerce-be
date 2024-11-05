@@ -62,6 +62,7 @@ const Signup: React.FC<{}> = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <FormInput
+            testId="first-name-input"
             label={t("SIGNUP.FIRST_NAME")}
             type="text"
             name="firstName"
@@ -73,6 +74,7 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.firstName}</p>
           <FormInput
+            testId="last-name-input"
             label={t("SIGNUP.LAST_NAME")}
             type="text"
             name="lastName"
@@ -84,6 +86,7 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.lastName}</p>
           <FormInput
+            testId="email-input"
             label={t("SIGNUP.EMAIL")}
             type="email"
             name="email"
@@ -95,6 +98,7 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.email}</p>
           <FormInput
+            testId="password-input"
             label={t("SIGNUP.PASSWORD")}
             type="password"
             name="password"
@@ -106,14 +110,20 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.password}</p>
           <div>
-            <FormButton text={t("SIGNUP.SUBMIT")} type="button" onClick={() => handleSubmit()} />
+            <FormButton
+              testId="submit-button"
+              text={t("SIGNUP.SUBMIT")}
+              type="button"
+              onClick={() => handleSubmit()}
+            />
           </div>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm text-gray-500" data-testid="login-link-text">
             {t("SIGNUP.ALREADY_HAVE_ACCOUNT")}
             <Link
               to="/login"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              data-testid="login-link"
             >
               {t("SIGNUP.LOGIN")}
             </Link>

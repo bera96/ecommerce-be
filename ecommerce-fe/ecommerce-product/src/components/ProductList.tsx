@@ -88,6 +88,7 @@ export const ProductList: React.FC = () => {
         <div className="flex-1">
           <input
             type="text"
+            data-testid="search-input"
             placeholder={t("PRODUCT_LIST.SEARCH")}
             value={searchTerm}
             onChange={(e) => handleSearchChange(e.target.value)}
@@ -126,6 +127,7 @@ export const ProductList: React.FC = () => {
             <div className="flex-1 sm:flex-none">
               <input
                 type="number"
+                data-testid="min-price-input"
                 placeholder={t("PRODUCT_LIST.MIN_PRICE")}
                 value={filters.minPrice || ""}
                 onChange={(e) =>
@@ -144,6 +146,7 @@ export const ProductList: React.FC = () => {
             <div className="flex-1 sm:flex-none">
               <input
                 type="number"
+                data-testid="max-price-input"
                 placeholder={t("PRODUCT_LIST.MAX_PRICE")}
                 value={filters.maxPrice || ""}
                 onChange={(e) =>
@@ -173,6 +176,7 @@ export const ProductList: React.FC = () => {
 
       <div className="flex justify-center items-center gap-4 mt-8">
         <button
+          data-testid="previous-button"
           onClick={() => setFilters((prev) => ({ ...prev, page: prev.page - 1 }))}
           disabled={filters.page === 1}
           className="px-6 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors duration-200"
@@ -183,6 +187,7 @@ export const ProductList: React.FC = () => {
           {t("PRODUCT_LIST.PAGE", { page: filters.page })}
         </span>
         <button
+          data-testid="next-button"
           onClick={() => setFilters((prev) => ({ ...prev, page: prev.page + 1 }))}
           disabled={products?.pages! <= filters.page}
           className="px-6 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors duration-200"

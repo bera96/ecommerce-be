@@ -50,18 +50,18 @@ describe("Signup Component", () => {
   it("renders signup form correctly", () => {
     renderSignup();
 
-    expect(screen.getByLabelText(/first name/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/last name/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/email address/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /sign up/i })).toBeInTheDocument();
-    expect(screen.getByText(/already have an account\?/i)).toBeInTheDocument();
+    expect(screen.getByTestId("first-name-input")).toBeInTheDocument();
+    expect(screen.getByTestId("last-name-input")).toBeInTheDocument();
+    expect(screen.getByTestId("email-input")).toBeInTheDocument();
+    expect(screen.getByTestId("password-input")).toBeInTheDocument();
+    expect(screen.getByTestId("submit-button")).toBeInTheDocument();
+    expect(screen.getByTestId("login-link-text")).toBeInTheDocument();
   });
 
   it("shows validation errors for empty fields", async () => {
     renderSignup();
 
-    const submitButton = screen.getByRole("button", { name: /sign up/i });
+    const submitButton = screen.getByTestId("submit-button");
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -75,10 +75,10 @@ describe("Signup Component", () => {
   it("shows error for invalid email format", async () => {
     renderSignup();
 
-    const emailInput = screen.getByLabelText(/email address/i);
+    const emailInput = screen.getByTestId("email-input");
     fireEvent.change(emailInput, { target: { value: "invalid-email" } });
 
-    const submitButton = screen.getByRole("button", { name: /sign up/i });
+    const submitButton = screen.getByTestId("submit-button");
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -98,16 +98,20 @@ describe("Signup Component", () => {
 
     renderSignup();
 
-    fireEvent.change(screen.getByLabelText(/first name/i), {
+    fireEvent.change(screen.getByTestId("first-name-input"), {
       target: { value: mockUser.firstName },
     });
-    fireEvent.change(screen.getByLabelText(/last name/i), { target: { value: mockUser.lastName } });
-    fireEvent.change(screen.getByLabelText(/email address/i), {
+    fireEvent.change(screen.getByTestId("last-name-input"), {
+      target: { value: mockUser.lastName },
+    });
+    fireEvent.change(screen.getByTestId("email-input"), {
       target: { value: mockUser.email },
     });
-    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: mockUser.password } });
+    fireEvent.change(screen.getByTestId("password-input"), {
+      target: { value: mockUser.password },
+    });
 
-    const submitButton = screen.getByRole("button", { name: /sign up/i });
+    const submitButton = screen.getByTestId("submit-button");
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -134,7 +138,7 @@ describe("Signup Component", () => {
   it("navigates to login page when clicking login link", () => {
     renderSignup();
 
-    const loginLink = screen.getByText("Login");
+    const loginLink = screen.getByTestId("login-link");
     fireEvent.click(loginLink);
 
     expect(window.location.pathname).toBe("/login");

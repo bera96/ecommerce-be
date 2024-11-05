@@ -13,6 +13,7 @@
   },
   "SERVICE": {
     "UPDATE": "Cart updated successfully",
+    "REMOVE": "Item removed from cart",
     "CHECKOUT": "Checkout successful"
   }
 }

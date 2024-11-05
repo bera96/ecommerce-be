@@ -94,7 +94,7 @@ describe("Cart", () => {
       fireEvent.click(increaseButton);
     });
 
-    expect(quantity).toHaveTextContent("3");
+    expect(quantity).toHaveTextContent("2");
   });
 
   it("clears the cart", async () => {

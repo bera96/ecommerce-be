@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import "../i18n/config";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-hot-toast";
 
 export const Cart: React.FC = () => {
   const { t } = useTranslation();
@@ -18,21 +19,15 @@ export const Cart: React.FC = () => {
     setCartItems(cart.items);
   }, [cart.items]);
 
-  const handleUpdateCart = (item: CartItem) => {
+  const handleUpdateCart = (item: CartItem, change: number) => {
     const currentQuantity = cartItems.find((i) => i._id === item._id)?.quantity!;
-    cartService.updateCart({ productId: item.productId, quantity: currentQuantity }).then(() => {
-      cartService.getCart().then((res: any) => {
-        dispatch(setCart(res.data));
+    cartService
+      .updateCart({ productId: item.productId, quantity: currentQuantity + change })
+      .then(() => {
+        cartService.getCart().then((res: any) => {
+          dispatch(setCart(res.data));
+        });
       });
-    });
-  };
-
-  const handleQuantityChange = async (itemId: string, change: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item._id === itemId ? { ...item, quantity: item.quantity + change } : item
-      )
-    );
   };
 
   const handleClearCart = () => {
@@ -45,6 +40,7 @@ export const Cart: React.FC = () => {
     cartService.updateCart({ productId: itemId, quantity: 0 }).then(() => {
       cartService.getCart().then((res: any) => {
         dispatch(setCart(res.data));
+        toast.success(t("SERVICE.REMOVE"));
       });
     });
   };
@@ -87,28 +83,22 @@ export const Cart: React.FC = () => {
                   <div className="flex items-center gap-2 mt-2">
                     <button
                       className="px-2 py-1 border rounded"
-                      onClick={() => handleQuantityChange(item._id, -1)}
+                      onClick={() => handleUpdateCart(item, -1)}
                     >
                       -
                     </button>
                     <span>{cartItems.find((i) => i._id === item._id)?.quantity}</span>
                     <button
                       className="px-2 py-1 border rounded"
-                      onClick={() => handleQuantityChange(item._id, +1)}
+                      onClick={() => handleUpdateCart(item, +1)}
                     >
                       +
                     </button>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="font-semibold mb-4">${(item.price * item.quantity).toFixed(2)}</p>
                   <div className="flex flex-col">
-                    <button
-                      className="bg-black text-white py-1 rounded-lg hover:bg-gray-800 transition-colors mb-1"
-                      onClick={() => handleUpdateCart(item)}
-                    >
-                      {t("CART.UPDATE")}
-                    </button>
                     <button
                       className="border-2 border-red-500 text-red-500 py-1 rounded-lg hover:bg-red-50 transition-colors"
                       onClick={() => handleProductRemove(item.productId)}

@@ -10,5 +10,10 @@
     "TOTAL": "Toplam",
     "CHECKOUT": "Ödemeye Git",
     "CLEAR_CART": "Sepeti Temizle"
+  },
+  "SERVICE": {
+    "UPDATE": "Sepet güncellendi",
+    "REMOVE": "Ürün sepetten kaldırıldı",
+    "CHECKOUT": "Ödeme başarılı"
   }
 }

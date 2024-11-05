@@ -45,7 +45,6 @@ export class CartService {
         productId,
         quantity,
       });
-      toast.success(i18next.t("SERVICE.UPDATE"));
       return response;
     } catch (error: any) {
       const responseMessage = error.response.data.message;

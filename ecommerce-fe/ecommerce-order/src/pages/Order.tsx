@@ -8,7 +8,7 @@ import "../i18n/config";
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<OrderState[]>([]);
   const orderService = new OrderService();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -33,7 +33,7 @@ const Orders: React.FC = () => {
                     <span className="font-medium" data-testid="order-date">
                       {t("ORDER.ORDER_DATE")}:
                     </span>{" "}
-                    {new Date(order.createdAt).toLocaleDateString("en-US", {
+                    {new Date(order.createdAt).toLocaleDateString(i18n.language, {
                       year: "numeric",
                       month: "long",
                       day: "numeric",

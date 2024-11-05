@@ -9,7 +9,7 @@ import { setUser } from "../store/reducer";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../store/store";
 import { useEffect } from "react";
-import Logo from "@/assets/logo.png";
+import Logo from "@/assets/Logo.png";
 import "../i18n/config";
 import { useTranslation } from "react-i18next";
 

@@ -7,7 +7,7 @@ import configureStore from "redux-mock-store";
 import Signup from "./Signup";
 import { useAuth } from "../utils/hooks/useAuth";
 
-jest.mock("../assets/logo.png");
+jest.mock("../assets/Logo.png");
 
 jest.mock("../utils/hooks/useAuth");
 

@@ -6,7 +6,7 @@ import configureStore from "redux-mock-store";
 import { Navbar } from "./Navbar";
 import React from "react";
 
-jest.mock("@/assets/logo.png", () => "test-logo-path");
+jest.mock("@/assets/Logo.png", () => "test-logo-path");
 jest.mock("js-cookie");
 
 jest.mock("../../store/store", () => ({

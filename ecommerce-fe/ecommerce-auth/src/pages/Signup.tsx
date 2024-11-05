@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../store/reducer";
 import { useAppSelector } from "../store/store";
 import { useEffect } from "react";
-import Logo from "@/assets/logo.png";
+import Logo from "@/assets/Logo.png";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import "../i18n/config";

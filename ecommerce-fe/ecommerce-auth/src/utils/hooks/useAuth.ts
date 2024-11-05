@@ -18,7 +18,7 @@ export const useAuth = () => {
     } catch (error: any) {
       const errorMessage = error.response.data.message;
       toast.error(errorMessage);
-      return null;
+      throw error;
     }
   };
 
@@ -34,7 +34,7 @@ export const useAuth = () => {
     } catch (error: any) {
       const errorMessage = error.response.data.message;
       toast.error(errorMessage);
-      return null;
+      throw error;
     }
   };
 

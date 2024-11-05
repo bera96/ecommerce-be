@@ -22,6 +22,7 @@ export class OrderService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 }

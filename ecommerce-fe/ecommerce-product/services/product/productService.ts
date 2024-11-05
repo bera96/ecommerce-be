@@ -23,6 +23,7 @@ export class ProductService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 
@@ -32,6 +33,7 @@ export class ProductService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 
@@ -43,6 +45,7 @@ export class ProductService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 }

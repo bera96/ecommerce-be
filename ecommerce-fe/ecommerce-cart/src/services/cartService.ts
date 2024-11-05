@@ -23,6 +23,7 @@ export class CartService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 
@@ -34,6 +35,7 @@ export class CartService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 
@@ -48,6 +50,7 @@ export class CartService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 
@@ -59,6 +62,7 @@ export class CartService {
     } catch (error: any) {
       const responseMessage = error.response.data.message;
       toast.error(responseMessage);
+      throw error;
     }
   }
 }

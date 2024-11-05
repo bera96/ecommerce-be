@@ -29,7 +29,7 @@ describe("ProductCard", () => {
 
     expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
     expect(screen.getByText(`$${mockProduct.price}`)).toBeInTheDocument();
-    expect(screen.getByText(`Stock: ${mockProduct.stock}`)).toBeInTheDocument();
+    expect(screen.getByText(`PRODUCT_CARD.STOCK: ${mockProduct.stock}`)).toBeInTheDocument();
     expect(screen.getByAltText(mockProduct.name)).toHaveAttribute("src", mockProduct.image);
   });
 

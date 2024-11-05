@@ -75,7 +75,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
               <span className="text-xl font-bold text-gray-900">${product.price}</span>
-              <span className="text-sm text-gray-500">Stock: {product.stock}</span>
+              <span className="text-sm text-gray-500">
+                {t("PRODUCT_CARD.STOCK")}: {product.stock}
+              </span>
             </div>
           </div>
 

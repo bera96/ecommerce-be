@@ -3,7 +3,8 @@
     "OUT_OF_STOCK": "Out of Stock",
     "ONLY_LEFT": "Only {{stock}} left",
     "IN_STOCK": "In Stock",
-    "BUY_NOW": "Buy Now"
+    "BUY_NOW": "Buy Now",
+    "STOCK": "Stock"
   },
   "PRODUCT_LIST": {
     "SEARCH": "Search...",

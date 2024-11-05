@@ -3,7 +3,8 @@
     "OUT_OF_STOCK": "Stokta Yok",
     "ONLY_LEFT": "Sadece {{stock}} kaldı",
     "IN_STOCK": "Stokta Var",
-    "BUY_NOW": "Satın Al"
+    "BUY_NOW": "Satın Al",
+    "STOCK": "Stok"
   },
   "PRODUCT_LIST": {
     "SEARCH": "Ara...",

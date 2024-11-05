@@ -4,8 +4,11 @@ import { CartService } from "../services/cartService";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import React from "react";
+import "../i18n/config";
+import { useTranslation } from "react-i18next";
 
 export const Cart: React.FC = () => {
+  const { t } = useTranslation();
   const cart = useAppSelector((state) => state.cart);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const dispatch = useDispatch();
@@ -104,13 +107,13 @@ export const Cart: React.FC = () => {
                       className="bg-black text-white py-1 rounded-lg hover:bg-gray-800 transition-colors mb-1"
                       onClick={() => handleUpdateCart(item)}
                     >
-                      Update
+                      {t("CART.UPDATE")}
                     </button>
                     <button
                       className="border-2 border-red-500 text-red-500 py-1 rounded-lg hover:bg-red-50 transition-colors"
                       onClick={() => handleProductRemove(item.productId)}
                     >
-                      Remove
+                      {t("CART.REMOVE")}
                     </button>
                   </div>
                 </div>
@@ -120,19 +123,19 @@ export const Cart: React.FC = () => {
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-6 h-fit">
-          <h2 className="text-xl font-semibold mb-4">Cart Summary</h2>
+          <h2 className="text-xl font-semibold mb-4">{t("CART.CART_SUMMARY")}</h2>
           <div className="space-y-2 mb-4">
             <div className="flex justify-between">
-              <span>Subtotal</span>
+              <span>{t("CART.SUBTOTAL")}</span>
               <span>${totalAmount.toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
-              <span>Shipping</span>
-              <span>Free</span>
+              <span>{t("CART.SHIPPING")}</span>
+              <span>{t("CART.FREE")}</span>
             </div>
             <div className="border-t pt-2 mt-2">
               <div className="flex justify-between font-semibold">
-                <span>Total</span>
+                <span>{t("CART.TOTAL")}</span>
                 <span>${totalAmount.toFixed(2)}</span>
               </div>
             </div>
@@ -144,14 +147,14 @@ export const Cart: React.FC = () => {
                          hover:bg-green-50 transition-colors"
               onClick={handleCheckout}
             >
-              Checkout
+              {t("CART.CHECKOUT")}
             </button>
             <button
               className="w-full border border-red-500 text-red-500 py-2 rounded-lg
                          hover:bg-red-50 transition-colors"
               onClick={handleClearCart}
             >
-              Clear Cart
+              {t("CART.CLEAR_CART")}
             </button>
           </div>
         </div>

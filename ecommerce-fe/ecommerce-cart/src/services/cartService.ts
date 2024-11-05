@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import toast from "react-hot-toast";
+import i18next from "i18next";
 
 const VITE_API_URL = process.env.VITE_API_URL;
 
@@ -28,7 +29,7 @@ export class CartService {
   async clearCart() {
     try {
       const response = await this.axiosInstance.delete("/clear");
-      toast.success("Cart cleared successfully");
+      toast.success(i18next.t("SERVICE.CLEAR_CART"));
       return response;
     } catch (error: any) {
       const responseMessage = error.response.data.message;
@@ -42,7 +43,7 @@ export class CartService {
         productId,
         quantity,
       });
-      toast.success("Cart updated successfully");
+      toast.success(i18next.t("SERVICE.UPDATE"));
       return response;
     } catch (error: any) {
       const responseMessage = error.response.data.message;
@@ -53,7 +54,7 @@ export class CartService {
   async checkout() {
     try {
       const response = await this.axiosInstance.post("/checkout");
-      toast.success("Checkout successful");
+      toast.success(i18next.t("SERVICE.CHECKOUT"));
       return response;
     } catch (error: any) {
       const responseMessage = error.response.data.message;

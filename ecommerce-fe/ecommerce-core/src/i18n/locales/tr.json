@@ -1,0 +1,11 @@
+{
+  "NAVBAR": {
+    "HOME": "Ana Sayfa",
+    "PRODUCTS": "Ürünler",
+    "CART": "Sepet",
+    "ORDERS": "Siparişler",
+    "LOGIN": "Giriş Yap",
+    "SIGNUP": "Kayıt Ol",
+    "LOGOUT": "Çıkış Yap"
+  }
+}

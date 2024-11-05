@@ -1,0 +1,11 @@
+{
+  "NAVBAR": {
+    "HOME": "Home",
+    "PRODUCTS": "Products",
+    "CART": "Cart",
+    "ORDERS": "Orders",
+    "LOGIN": "Login",
+    "SIGNUP": "Sign Up",
+    "LOGOUT": "Logout"
+  }
+}

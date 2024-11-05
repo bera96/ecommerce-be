@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import toast from "react-hot-toast";
+import i18next from "i18next";
 
 export const VITE_API_URL = process.env.VITE_API_URL;
 
@@ -37,7 +38,7 @@ export class ProductService {
   async addToCart({ productId, quantity }: { productId: string; quantity: number }) {
     try {
       const response = await this.axiosInstance.post(`/add`, { productId, quantity });
-      toast.success("Product added to cart");
+      toast.success(i18next.t("SERVICE.ADD_TO_CART"));
       return response;
     } catch (error: any) {
       const responseMessage = error.response.data.message;

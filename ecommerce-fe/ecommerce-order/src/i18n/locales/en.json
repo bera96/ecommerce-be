@@ -1,0 +1,12 @@
+{
+  "ORDER": {
+    "ORDER_HISTORY": "Order History",
+    "ORDER_DATE": "Order Date",
+    "TRACKING_NUMBER": "Tracking Number",
+    "QUANTITY": "Quantity",
+    "PRICE": "Price",
+    "TOTAL_AMOUNT": "Total Amount",
+    "NO_ORDERS_FOUND": "No orders found",
+    "NO_ORDERS_YET": "You haven't placed any orders yet."
+  }
+}

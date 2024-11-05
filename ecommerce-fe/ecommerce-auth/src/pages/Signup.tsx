@@ -10,12 +10,15 @@ import { useAppSelector } from "../store/store";
 import { useEffect } from "react";
 import Logo from "@/assets/logo.png";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import "../i18n/config";
 
 const Signup: React.FC<{}> = () => {
   const { handleSignup } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.login.user);
+  const { t } = useTranslation();
   const validationSchema = Yup.object({
     firstName: Yup.string().required("First name is required"),
     lastName: Yup.string().required("Last name is required"),
@@ -53,13 +56,13 @@ const Signup: React.FC<{}> = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img alt="Your Company" src={Logo} className="mx-auto h-10 w-auto" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            {t("SIGNUP.TITLE")}
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <FormInput
-            label="First Name"
+            label={t("SIGNUP.FIRST_NAME")}
             type="text"
             name="firstName"
             autoComplete="firstName"
@@ -70,7 +73,7 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.firstName}</p>
           <FormInput
-            label="Last Name"
+            label={t("SIGNUP.LAST_NAME")}
             type="text"
             name="lastName"
             autoComplete="lastName"
@@ -81,7 +84,7 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.lastName}</p>
           <FormInput
-            label="Email address"
+            label={t("SIGNUP.EMAIL")}
             type="email"
             name="email"
             autoComplete="email"
@@ -92,7 +95,7 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.email}</p>
           <FormInput
-            label="Password"
+            label={t("SIGNUP.PASSWORD")}
             type="password"
             name="password"
             autoComplete="current-password"
@@ -103,16 +106,16 @@ const Signup: React.FC<{}> = () => {
           />
           <p className="text-red-500">{errors.password}</p>
           <div>
-            <FormButton text="Sign up" type="button" onClick={() => handleSubmit()} />
+            <FormButton text={t("SIGNUP.SUBMIT")} type="button" onClick={() => handleSubmit()} />
           </div>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Already have an account?
+            {t("SIGNUP.ALREADY_HAVE_ACCOUNT")}
             <Link
               to="/login"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-              Login
+              {t("SIGNUP.LOGIN")}
             </Link>
           </p>
         </div>

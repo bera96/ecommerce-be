@@ -1,0 +1,14 @@
+{
+  "CART": {
+    "EMPTY_CART": "Sepetiniz boş",
+    "UPDATE": "Güncelle",
+    "REMOVE": "Sil",
+    "CART_SUMMARY": "Sepet Özeti",
+    "SUBTOTAL": "Ara Toplam",
+    "SHIPPING": "Kargo",
+    "FREE": "Ücretsiz",
+    "TOTAL": "Toplam",
+    "CHECKOUT": "Ödemeye Git",
+    "CLEAR_CART": "Sepeti Temizle"
+  }
+}

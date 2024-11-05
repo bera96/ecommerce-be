@@ -1,0 +1,20 @@
+{
+  "LOGIN": {
+    "TITLE": "Login to your account",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "SUBMIT": "Login",
+    "DONT_HAVE_ACCOUNT": "Don't have an account?",
+    "SIGNUP": "Signup"
+  },
+  "SIGNUP": {
+    "TITLE": "Signup",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "SUBMIT": "Signup",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "LOGIN": "Login"
+  }
+}

@@ -7,6 +7,8 @@ import { setProducts } from "../store/slices/productSlice";
 import { ProductService } from "../../services/product/productService";
 import { debounce } from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import "../i18n/config";
 
 interface FilterState {
   search: string;
@@ -24,6 +26,7 @@ interface ProductQuantities {
 export const ProductList: React.FC = () => {
   const dispatch = useDispatch();
   const productService = new ProductService();
+  const { t } = useTranslation();
   const products = useAppSelector((state) => state.product.products);
   const selectedCategory = useAppSelector((state) => state.category.selectedCategory);
   const [quantities, setQuantities] = useState<ProductQuantities>({});
@@ -85,7 +88,7 @@ export const ProductList: React.FC = () => {
         <div className="flex-1">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder={t("PRODUCT_LIST.SEARCH")}
             value={searchTerm}
             onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
@@ -99,8 +102,8 @@ export const ProductList: React.FC = () => {
               onChange={(e) => handleSortChange(e.target.value)}
               className="appearance-none w-full sm:w-48 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm bg-white pr-10"
             >
-              <option value="asc">Price: Low to High</option>
-              <option value="desc">Price: High to Low</option>
+              <option value="asc">{t("PRODUCT_LIST.PRICE_LOW_TO_HIGH")}</option>
+              <option value="desc">{t("PRODUCT_LIST.PRICE_HIGH_TO_LOW")}</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
               <svg
@@ -123,7 +126,7 @@ export const ProductList: React.FC = () => {
             <div className="flex-1 sm:flex-none">
               <input
                 type="number"
-                placeholder="Min Price"
+                placeholder={t("PRODUCT_LIST.MIN_PRICE")}
                 value={filters.minPrice || ""}
                 onChange={(e) =>
                   setFilters((prev) => ({
@@ -141,7 +144,7 @@ export const ProductList: React.FC = () => {
             <div className="flex-1 sm:flex-none">
               <input
                 type="number"
-                placeholder="Max Price"
+                placeholder={t("PRODUCT_LIST.MAX_PRICE")}
                 value={filters.maxPrice || ""}
                 onChange={(e) =>
                   setFilters((prev) => ({
@@ -174,15 +177,17 @@ export const ProductList: React.FC = () => {
           disabled={filters.page === 1}
           className="px-6 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors duration-200"
         >
-          Previous
+          {t("PRODUCT_LIST.PREVIOUS")}
         </button>
-        <span className="text-gray-600 font-medium">Page {filters.page}</span>
+        <span className="text-gray-600 font-medium">
+          {t("PRODUCT_LIST.PAGE", { page: filters.page })}
+        </span>
         <button
           onClick={() => setFilters((prev) => ({ ...prev, page: prev.page + 1 }))}
           disabled={products?.pages! <= filters.page}
           className="px-6 py-2 bg-gray-800 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-gray-700 transition-colors duration-200"
         >
-          Next
+          {t("PRODUCT_LIST.NEXT")}
         </button>
       </div>
     </div>

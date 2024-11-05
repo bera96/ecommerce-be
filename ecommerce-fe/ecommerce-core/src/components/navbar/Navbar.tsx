@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { LazyShoppingCart } from "../LazyComponents";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
@@ -19,6 +20,11 @@ export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated } = useAppSelector((state: RootState) => state.login.user);
   const { clearUser, setUser } = loginSlice.actions;
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
 
   useEffect(() => {
     const userFromCookie = Cookies.get("user");
@@ -46,10 +52,10 @@ export const Navbar: React.FC = () => {
             {isAuthenticated ? (
               <>
                 <NavLink to={ROUTES.PRODUCTS} className={getLinkClassName}>
-                  Products
+                  {t("NAVBAR.PRODUCTS")}
                 </NavLink>
                 <NavLink to={ROUTES.ORDERS} className={getLinkClassName}>
-                  Orders
+                  {t("NAVBAR.ORDERS")}
                 </NavLink>
                 <LazyShoppingCart
                   className={`core-size-6 core-cursor-pointer ${
@@ -58,6 +64,28 @@ export const Navbar: React.FC = () => {
                       : "core-text-gray-400 hover:core-text-gray-600"
                   }`}
                 />
+                <div className="core-flex core-items-center core-space-x-2">
+                  <button
+                    onClick={() => changeLanguage("tr")}
+                    className={`core-px-2 core-py-1 core-rounded ${
+                      i18n.language === "tr"
+                        ? "core-bg-gray-200 core-text-black"
+                        : "core-text-gray-400 hover:core-text-gray-600"
+                    }`}
+                  >
+                    TR
+                  </button>
+                  <button
+                    onClick={() => changeLanguage("en")}
+                    className={`core-px-2 core-py-1 core-rounded ${
+                      i18n.language === "en"
+                        ? "core-bg-gray-200 core-text-black"
+                        : "core-text-gray-400 hover:core-text-gray-600"
+                    }`}
+                  >
+                    EN
+                  </button>
+                </div>
                 <button
                   onClick={() => {
                     deleteFromCookie(["accessToken", "refreshToken", "user"]);
@@ -66,17 +94,39 @@ export const Navbar: React.FC = () => {
                   }}
                   className="core-text-gray-400 hover:core-text-gray-600 core-transition-colors core-duration-200"
                 >
-                  Logout
+                  {t("NAVBAR.LOGOUT")}
                 </button>
               </>
             ) : (
               <>
                 <NavLink to={ROUTES.LOGIN} className={getLinkClassName}>
-                  Login
+                  {t("NAVBAR.LOGIN")}
                 </NavLink>
                 <NavLink to={ROUTES.SIGNUP} className={getLinkClassName}>
-                  Signup
+                  {t("NAVBAR.SIGNUP")}
                 </NavLink>
+                <div className="core-flex core-items-center core-space-x-2">
+                  <button
+                    onClick={() => changeLanguage("tr")}
+                    className={`core-px-2 core-py-1 core-rounded ${
+                      i18n.language === "tr"
+                        ? "core-bg-gray-200 core-text-black"
+                        : "core-text-gray-400 hover:core-text-gray-600"
+                    }`}
+                  >
+                    TR
+                  </button>
+                  <button
+                    onClick={() => changeLanguage("en")}
+                    className={`core-px-2 core-py-1 core-rounded ${
+                      i18n.language === "en"
+                        ? "core-bg-gray-200 core-text-black"
+                        : "core-text-gray-400 hover:core-text-gray-600"
+                    }`}
+                  >
+                    EN
+                  </button>
+                </div>
               </>
             )}
           </div>
@@ -103,14 +153,14 @@ export const Navbar: React.FC = () => {
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="core-block core-py-2">Products</div>
+                    <div className="core-block core-py-2">{t("NAVBAR.PRODUCTS")}</div>
                   </NavLink>
                   <NavLink
                     to={ROUTES.ORDERS}
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="core-block core-py-2">Orders</div>
+                    <div className="core-block core-py-2">{t("NAVBAR.ORDERS")}</div>
                   </NavLink>
                   <Link
                     to={ROUTES.CART}
@@ -119,6 +169,34 @@ export const Navbar: React.FC = () => {
                   >
                     <LazyShoppingCart />
                   </Link>
+                  <div className="core-flex core-items-center core-space-x-2 core-py-2">
+                    <button
+                      onClick={() => {
+                        changeLanguage("tr");
+                        setIsMenuOpen(false);
+                      }}
+                      className={`core-px-2 core-py-1 core-rounded ${
+                        i18n.language === "tr"
+                          ? "core-bg-gray-200 core-text-black"
+                          : "core-text-gray-400 hover:core-text-gray-600"
+                      }`}
+                    >
+                      TR
+                    </button>
+                    <button
+                      onClick={() => {
+                        changeLanguage("en");
+                        setIsMenuOpen(false);
+                      }}
+                      className={`core-px-2 core-py-1 core-rounded ${
+                        i18n.language === "en"
+                          ? "core-bg-gray-200 core-text-black"
+                          : "core-text-gray-400 hover:core-text-gray-600"
+                      }`}
+                    >
+                      EN
+                    </button>
+                  </div>
                   <button
                     onClick={() => {
                       deleteFromCookie(["accessToken", "refreshToken", "user"]);
@@ -128,7 +206,7 @@ export const Navbar: React.FC = () => {
                     }}
                     className="core-block core-w-full core-text-left core-py-2 core-text-gray-400 hover:core-text-gray-600"
                   >
-                    Logout
+                    {t("NAVBAR.LOGOUT")}
                   </button>
                 </>
               ) : (
@@ -138,15 +216,43 @@ export const Navbar: React.FC = () => {
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="core-block core-py-2">Login</div>
+                    <div className="core-block core-py-2">{t("NAVBAR.LOGIN")}</div>
                   </NavLink>
                   <NavLink
                     to={ROUTES.SIGNUP}
                     className={getLinkClassName}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <div className="core-block core-py-2">Signup</div>
+                    <div className="core-block core-py-2">{t("NAVBAR.SIGNUP")}</div>
                   </NavLink>
+                  <div className="core-flex core-items-center core-space-x-2 core-py-2">
+                    <button
+                      onClick={() => {
+                        changeLanguage("tr");
+                        setIsMenuOpen(false);
+                      }}
+                      className={`core-px-2 core-py-1 core-rounded ${
+                        i18n.language === "tr"
+                          ? "core-bg-gray-200 core-text-black"
+                          : "core-text-gray-400 hover:core-text-gray-600"
+                      }`}
+                    >
+                      TR
+                    </button>
+                    <button
+                      onClick={() => {
+                        changeLanguage("en");
+                        setIsMenuOpen(false);
+                      }}
+                      className={`core-px-2 core-py-1 core-rounded ${
+                        i18n.language === "en"
+                          ? "core-bg-gray-200 core-text-black"
+                          : "core-text-gray-400 hover:core-text-gray-600"
+                      }`}
+                    >
+                      EN
+                    </button>
+                  </div>
                 </>
               )}
             </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { ProductService, VITE_API_URL } from "../../services/product/productService";
 import { Product } from "../../types/product.types";
 import React from "react";
@@ -13,13 +14,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   quantity,
   onQuantityChange,
 }) => {
+  const { t } = useTranslation();
   const getStockStatus = (stock: number) => {
     if (stock === 0) {
-      return { color: "bg-red-100 text-red-800", text: "Out of Stock" };
+      return { color: "bg-red-100 text-red-800", text: t("PRODUCT_CARD.OUT_OF_STOCK") };
     } else if (stock < 10) {
-      return { color: "bg-orange-100 text-orange-800", text: `Only ${stock} left` };
+      return {
+        color: "bg-orange-100 text-orange-800",
+        text: t("PRODUCT_CARD.ONLY_LEFT", { stock }),
+      };
     } else {
-      return { color: "bg-green-100 text-green-800", text: "In Stock" };
+      return { color: "bg-green-100 text-green-800", text: t("PRODUCT_CARD.IN_STOCK") };
     }
   };
 
@@ -121,7 +126,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             onClick={() => onBuyNow(product._id, quantity)}
             disabled={product.stock === 0}
           >
-            {product.stock === 0 ? "Out of Stock" : "Buy Now"}
+            {product.stock === 0 ? t("PRODUCT_CARD.OUT_OF_STOCK") : t("PRODUCT_CARD.BUY_NOW")}
           </button>
         </div>
       </div>

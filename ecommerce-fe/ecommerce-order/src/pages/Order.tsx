@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { OrderService } from "../services/orderService";
 import { OrderState } from "../store/slices/orderSlice";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import "../i18n/config";
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<OrderState[]>([]);
   const orderService = new OrderService();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -16,7 +19,7 @@ const Orders: React.FC = () => {
   }, []);
   return (
     <div className="container mx-auto px-4 py-8 order-container">
-      <h1 className="text-2xl font-bold mb-8">Order History</h1>
+      <h1 className="text-2xl font-bold mb-8">{t("ORDER.ORDER_HISTORY")}</h1>
 
       <div className="space-y-6">
         {orders.map((order) => (
@@ -25,7 +28,7 @@ const Orders: React.FC = () => {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-gray-600">
-                    <span className="font-medium">Order Date:</span>{" "}
+                    <span className="font-medium">{t("ORDER.ORDER_DATE")}:</span>{" "}
                     {new Date(order.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -33,7 +36,7 @@ const Orders: React.FC = () => {
                     })}
                   </p>
                   <p className="text-sm text-gray-600">
-                    <span className="font-medium">Tracking Number:</span>{" "}
+                    <span className="font-medium">{t("ORDER.TRACKING_NUMBER")}:</span>{" "}
                     <span className="font-mono">{order.trackingNumber}</span>
                   </p>
                 </div>
@@ -56,12 +59,12 @@ const Orders: React.FC = () => {
                       <div className="mt-2 flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-gray-500">
                         <div className="flex items-center gap-4">
                           <span>
-                            Quantity:{" "}
+                            {t("ORDER.QUANTITY")}:{" "}
                             <span className="font-medium text-gray-900">{item.quantity}</span>
                           </span>
                           <span className="hidden sm:inline text-gray-300">|</span>
                           <span>
-                            Price:{" "}
+                            {t("ORDER.PRICE")}:{" "}
                             <span className="font-medium text-gray-900">
                               ${item.price.toFixed(2)}
                             </span>
@@ -82,7 +85,7 @@ const Orders: React.FC = () => {
             <div className="bg-gray-50 p-4">
               <div className="flex justify-end">
                 <div className="text-right">
-                  <p className="text-sm text-gray-600">Total Amount</p>
+                  <p className="text-sm text-gray-600">{t("ORDER.TOTAL_AMOUNT")}</p>
                   <p className="text-xl font-bold text-gray-900">${order.totalAmount.toFixed(2)}</p>
                 </div>
               </div>
@@ -94,8 +97,8 @@ const Orders: React.FC = () => {
       {orders.length === 0 && (
         <div className="flex flex-col items-center justify-center py-12 px-4">
           <div className="text-center">
-            <h3 className="mt-2 text-lg font-medium text-gray-900">No orders found</h3>
-            <p className="mt-1 text-sm text-gray-500">You haven't placed any orders yet.</p>
+            <h3 className="mt-2 text-lg font-medium text-gray-900">{t("ORDER.NO_ORDERS_FOUND")}</h3>
+            <p className="mt-1 text-sm text-gray-500">{t("ORDER.NO_ORDERS_YET")}</p>
           </div>
         </div>
       )}

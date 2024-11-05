@@ -1,0 +1,18 @@
+{
+  "CART": {
+    "EMPTY_CART": "Your cart is empty",
+    "UPDATE": "Update",
+    "REMOVE": "Remove",
+    "CART_SUMMARY": "Cart Summary",
+    "SUBTOTAL": "Subtotal",
+    "SHIPPING": "Shipping",
+    "FREE": "Free",
+    "TOTAL": "Total",
+    "CHECKOUT": "Checkout",
+    "CLEAR_CART": "Clear Cart"
+  },
+  "SERVICE": {
+    "UPDATE": "Cart updated successfully",
+    "CHECKOUT": "Checkout successful"
+  }
+}

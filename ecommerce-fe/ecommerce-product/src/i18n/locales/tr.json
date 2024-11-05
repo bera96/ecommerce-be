@@ -1,0 +1,21 @@
+{
+  "PRODUCT_CARD": {
+    "OUT_OF_STOCK": "Stokta Yok",
+    "ONLY_LEFT": "Sadece {{stock}} kaldı",
+    "IN_STOCK": "Stokta Var",
+    "BUY_NOW": "Satın Al"
+  },
+  "PRODUCT_LIST": {
+    "SEARCH": "Ara...",
+    "PREVIOUS": "Önceki",
+    "PAGE": "Sayfa {{page}}",
+    "NEXT": "Sonraki",
+    "MIN_PRICE": "Min Fiyat",
+    "MAX_PRICE": "Max Fiyat",
+    "PRICE_LOW_TO_HIGH": "Fiyat: Düşükten Yüksek",
+    "PRICE_HIGH_TO_LOW": "Fiyat: Yüksekten Düşük"
+  },
+  "SERVICE": {
+    "ADD_TO_CART": "Ürün sepete eklendi"
+  }
+}

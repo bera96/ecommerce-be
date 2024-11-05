@@ -1,0 +1,12 @@
+{
+  "ORDER": {
+    "ORDER_HISTORY": "Sipariş Geçmişi",
+    "ORDER_DATE": "Sipariş Tarihi",
+    "TRACKING_NUMBER": "Takip Numarası",
+    "QUANTITY": "Adet",
+    "PRICE": "Fiyat",
+    "TOTAL_AMOUNT": "Toplam Tutar",
+    "NO_ORDERS_FOUND": "Sipariş bulunamadı",
+    "NO_ORDERS_YET": "Henüz sipariş vermediniz."
+  }
+}

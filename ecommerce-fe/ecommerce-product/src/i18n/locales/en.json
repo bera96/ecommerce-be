@@ -1,0 +1,21 @@
+{
+  "PRODUCT_CARD": {
+    "OUT_OF_STOCK": "Out of Stock",
+    "ONLY_LEFT": "Only {{stock}} left",
+    "IN_STOCK": "In Stock",
+    "BUY_NOW": "Buy Now"
+  },
+  "PRODUCT_LIST": {
+    "SEARCH": "Search...",
+    "PREVIOUS": "Previous",
+    "PAGE": "Page {{page}}",
+    "NEXT": "Next",
+    "MIN_PRICE": "Min Price",
+    "MAX_PRICE": "Max Price",
+    "PRICE_LOW_TO_HIGH": "Price: Low to High",
+    "PRICE_HIGH_TO_LOW": "Price: High to Low"
+  },
+  "SERVICE": {
+    "ADD_TO_CART": "Product added to cart"
+  }
+}

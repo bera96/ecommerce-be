@@ -1,0 +1,20 @@
+{
+  "LOGIN": {
+    "TITLE": "Hesabınıza Giriş Yapın",
+    "EMAIL": "E-posta",
+    "PASSWORD": "Şifre",
+    "SUBMIT": "Giriş",
+    "DONT_HAVE_ACCOUNT": "Hesabınız yok mu?",
+    "SIGNUP": "Kayıt Ol"
+  },
+  "SIGNUP": {
+    "TITLE": "Kayıt Ol",
+    "FIRST_NAME": "Ad",
+    "LAST_NAME": "Soyad",
+    "EMAIL": "E-posta",
+    "PASSWORD": "Şifre",
+    "SUBMIT": "Kayıt Ol",
+    "ALREADY_HAVE_ACCOUNT": "Hesabınız var mı?",
+    "LOGIN": "Giriş"
+  }
+}
